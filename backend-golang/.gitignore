@@ -1,0 +1,10 @@
+# Binaries and build output
+*.exe
+*.exe.test
+*.out
+tmp/
+backend-golang/tmp/
+
+# Environment variables
+.env
+backend-golang/.env
