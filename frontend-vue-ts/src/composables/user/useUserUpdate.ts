@@ -4,20 +4,20 @@ import Api from '../../services/api';
 
 import Cookies from 'js-cookie';
 
+
 interface UserRequest {
     name: string;
+    username: string;
     email: string;
-    password: string;
-    role: string;
+    password?: string;
 }
 
-export const useUserCreate = () => {
-
+export const useUserUpdate = () => {
     return useMutation({
-        mutationFn: async (data: UserRequest) => {
+        mutationFn: async ({ id, data }: { id: Number, data: UserRequest }) => {
             const token = Cookies.get('token');
 
-            const response = await Api.post('/api/users', data, {
+            const response = await Api.put(`/api/users/${id}`, data, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -25,5 +25,5 @@ export const useUserCreate = () => {
 
             return response.data;
         }
-    })
-}
+    });
+};

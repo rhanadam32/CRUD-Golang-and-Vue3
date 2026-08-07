@@ -4,26 +4,21 @@ import Api from '../../services/api';
 
 import Cookies from 'js-cookie';
 
-interface UserRequest {
-    name: string;
-    email: string;
-    password: string;
-    role: string;
-}
-
-export const useUserCreate = () => {
+export const useUserDelete = () => {
 
     return useMutation({
-        mutationFn: async (data: UserRequest) => {
+
+        mutationFn: async (id: number) => {
             const token = Cookies.get('token');
 
-            const response = await Api.post('/api/users', data, {
+            const response = await Api.delete(`/api/users/${id}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
             });
 
+
             return response.data;
         }
-    })
-}
+    });
+};
