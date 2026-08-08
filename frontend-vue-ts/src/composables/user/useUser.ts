@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/vue-query';
 
 import Api from '../../services/api';
 
-import Cookie from 'js-cookie';
+import Cookies from 'js-cookie';
 
 export interface User {
     id: number;
@@ -16,7 +16,7 @@ export const useUser = () => {
 
         queryKey: ['users'],
         queryFn: async () => {
-            const token = Cookie.get('token');
+            const token = Cookies.get('token');
 
             const response = await Api.get('/api/users', {
                 headers: {
