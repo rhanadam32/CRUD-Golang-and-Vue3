@@ -37,6 +37,12 @@ const routes: RouteRecordRaw[] = [
         name: 'admin.users.create',
         component: () => import('../views/admin/users/create.vue'),
         meta: { requiresAuth: true }
+    },
+    {
+        path: '/admin/users/edit/:id',
+        name: 'admin.users.edit',
+        component: () => import('../views/admin/users/edit.vue'),
+        meta: { requiresAuth: true }
     }
 
 ]
