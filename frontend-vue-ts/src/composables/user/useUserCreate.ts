@@ -6,9 +6,9 @@ import Cookies from 'js-cookie';
 
 interface UserRequest {
     name: string;
+    username: string;
     email: string;
     password: string;
-    role: string;
 }
 
 export const useUserCreate = () => {
