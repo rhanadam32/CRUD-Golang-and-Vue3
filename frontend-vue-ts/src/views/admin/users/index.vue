@@ -4,7 +4,26 @@ import { useUser } from '../../../composables/user/useUser';
 
 import SidebarMenu from '../../../components/SidebarMenu.vue';
 
+import { useUserDelete } from '../../../composables/user/usUserDelete.ts';
+
+
+import { useQueryClient } from '@tanstack/vue-query';
+
+const {mutate, isPending} = useUserDelete()
+
+const queryClient = useQueryClient()
+
 const {data: users, isLoading, isError, error } = useUser()
+
+const handleDelete = (id: number) => {
+    if (confirm('Apakah anda yakin untuk menghapus user ini?')){
+        mutate(id, {
+            onSuccess: () => {
+                queryClient.invalidateQueries({queryKey: ['users']})
+            },
+        })
+    }
+}
 </script>
 
    <template>
@@ -50,7 +69,7 @@ const {data: users, isLoading, isError, error } = useUser()
                                             class="btn btn-sm btn-primary rounded-4 shadow-sm border-0 me-2">
                                             EDIT
                                         </router-link>
-                                        <button class="btn btn-sm btn-danger rounded-4 shadow-sm border-0">DELETE</button>
+                                        <button @click="handleDelete(user.id)" :disabled="isPending" class="btn btn-sm btn-danger rounded-4 shadow-sm border-0">{{isPending ? 'Menghapus...' : 'HAPUS'}}</button>
                                     </td>
                                 </tr>
                             </tbody>
